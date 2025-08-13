@@ -1,42 +1,47 @@
 #include "libft.h"
 
-static int	power(int n, int pow) {
-	int	nb;
-
-	nb = 1;
-	while (pow) {
-		nb *= n;
-		pow--;
+static int put_unsigned_digits(unsigned int n) {
+	int printed = 0;
+	if (n >= 10) {
+		printed += put_unsigned_digits(n / 10);
+		ft_putchar('0' + n % 10);
+	} else {
+		ft_putchar('0' + n);
 	}
-	return (nb);
+	return (printed + 1);
 }
 
-static int	uint_len(unsigned int n) {
-	int	size;
-
-	size = 0;
-	while (n) {
-		n /= 10;
-		size++;
+int ft_putunbr_formatted(unsigned int n, t_printformat *fmt) {
+	int size = 0;
+	int len = 0;
+	unsigned int temp = n;
+	
+	// Calculate length
+	len = (n == 0) ? 1 : 0;
+	while (temp) {
+		len++;
+		temp /= 10;
 	}
-	return (size);
-}
-
-int	ft_putunbr(unsigned int n) {
-	int		size;
-	int		i;
-	char	c;
-
+	
+	int pad = fmt->width - len;
+	
+	// Right alignment padding
+	if (!fmt->minus && pad > 0) {
+		char pad_char = fmt->zero ? '0' : ' ';
+		size += format_print_padding(pad, pad_char);
+	}
+	
+	// Print number
 	if (n == 0) {
-		return (ft_putchar('0'));
+		ft_putchar('0');
+		size += 1;
+	} else {
+		size += put_unsigned_digits(n);
 	}
-	size = uint_len(n);
-	i = size - 1;
-	while (i >= 0) {
-		c = n / power(10, i) + '0';
-		n = n - power(10, i) * (c - 48);
-		write(1, &c, 1);
-		i--;
-	}
-	return (size);
+	
+	// Left alignment padding
+	if (fmt->minus && pad > 0)
+		size += format_print_padding(pad, ' ');
+	
+	return size;
 }

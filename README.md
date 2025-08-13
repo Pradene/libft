@@ -67,20 +67,20 @@ To compile the library:
 
 1. Clone the repository:
 
-    ```bash
-    git clone https://github.com/Pradene/libft.git
-    ```
+```bash
+git clone https://github.com/Pradene/libft.git
+```
    
 2. Build the project:
 
-    ```bash
-    make
-    ```
+```bash
+make
+```
 
 3. To use the library in your projects, include the header file:
-    ```c
-    #include "libft.h"
-    ```
+```c
+#include "libft.h"
+```
 
 ## Usage
 After compilation, the library functions can be utilized in your C projects. Ensure that the libft.a static library is linked during the compilation of your projects.

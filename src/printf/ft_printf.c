@@ -1,47 +1,48 @@
 #include "libft.h"
 
-int	ft_putformated(va_list params, const char *s, int *i) {
-	int		size = 0;
-	char	c = s[*i];
+int	ft_putformated(va_list params, t_printformat *fmt, char c) {
+	int	printed = 0;
 
 	if (c == 'c') {
-		size += ft_putchar(va_arg(params, int));
+		printed += ft_putchar_formatted(va_arg(params, int), fmt);
 	} else if (c == 's') {
-		size += ft_putstr(va_arg(params, char *));
+		printed += ft_putstr_formatted(va_arg(params, char *), fmt);
 	} else if (c == 'p') {
-		size += ft_putptr(va_arg(params, unsigned long long));
+		printed += ft_putptr_formatted(va_arg(params, unsigned long long), fmt);
 	} else if (c == 'd' || c == 'i') {
-		size += ft_putnbr(va_arg(params, int));
+		printed += ft_putnbr_formatted(va_arg(params, int), fmt);
 	} else if (c == 'u') {
-		size += ft_putunbr(va_arg(params, unsigned int));
+		printed += ft_putunbr_formatted(va_arg(params, unsigned int), fmt);
 	} else if (c == 'x' || c == 'X') {
-		size += ft_puthex(va_arg(params, unsigned long long));
-	} else if (ft_strncmp(&s[*i], "zu", 2) == 0) {
-		size += ft_putsize_t(va_arg(params, size_t));
-		*i += 1;
+		printed += ft_puthex_formatted(va_arg(params, unsigned int), fmt, c);
+	} else if (c == 'z') {
+		printed += ft_putsize_t_formatted(va_arg(params, size_t), fmt);
 	} else if (c == '%') {
-		size += ft_putchar('%');
+		ft_putchar('%');
+		printed += 1;
 	}
-	return (size);
+	return (printed);
 }
 
-int	ft_printf(const char *s, ...) {
-	int		i;
-	int		size;
-	va_list	params;
+int ft_printf(const char *s, ...) {
+	va_list params;
+	t_printformat fmt;
+	int printed = 0;
+	int i = 0;
 
-	i = 0;
-	size = 0;
 	va_start(params, s);
 	while (s[i]) {
 		if (s[i] != '%') {
-			size += ft_putchar(s[i]);
+			ft_putchar(s[i]);
+			printed += 1;
 		} else {
 			++i;
-			size += ft_putformated(params, s, &i);
+			format_init(&fmt);
+			format_parse_flags(s, &i, &fmt);
+			printed += ft_putformated(params, &fmt, s[i]);
 		}
-		i++;
+		++i;
 	}
 	va_end(params);
-	return (size);
+	return (printed);
 }

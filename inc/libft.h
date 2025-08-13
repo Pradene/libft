@@ -4,12 +4,23 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
+# include <stdbool.h>
+# include <stddef.h>
 
-typedef struct s_list
-{
+typedef struct s_list {
 	void			*content;
 	struct s_list	*next;
 }	t_list;
+
+// Structure to hold format flags and width for printf
+typedef struct s_printformat {
+	int minus;	  // '-' flag (left justify)
+	int zero;	   // '0' flag (zero padding)
+	int hash;	   // '#' flag (alternate form)
+	int space;	  // ' ' flag (space for positive numbers)
+	int plus;	   // '+' flag (always show sign)
+	int width;	  // minimum field width
+} t_printformat;
 
 // CHAR
 int		ft_isalnum(int c);
@@ -50,7 +61,9 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char *));
 
 // PRINT
 void	ft_putchar_fd(char c, int fd);
+void	ft_putchar(char c);
 void	ft_putstr_fd(char *s, int fd);
+void	ft_putstr(char *s);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 
@@ -67,15 +80,18 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 // PRINTF
 int	ft_printf(const char *s, ...);
-int	ft_putformated(va_list params, const char *s, int *i);
-int	ft_putstr(char *s);
-int	ft_putchar(char c);
-int	ft_puthex(unsigned long long n);
-int	ft_putnbr(int n);
-int	ft_putunbr(unsigned int n);
-int	ft_putchar(char c);
-int	ft_putstr(char *s);
-int	ft_putptr(unsigned long long n);
-int	ft_putsize_t(size_t n);
+int	ft_format(va_list params, t_printformat *fmt, char c);
+int	ft_putstr_formatted(char *s, t_printformat *fmt);
+int	ft_putchar_formatted(char c, t_printformat *fmt);
+int	ft_puthex_formatted(unsigned long long n, t_printformat *fmt, char format);
+int	ft_puthex(unsigned long long n, char format);
+int	ft_putnbr_formatted(int n, t_printformat *fmt);
+int	ft_putunbr_formatted(unsigned int n, t_printformat *fmt);
+int	ft_putptr_formatted(unsigned long long n, t_printformat *fmt);
+int	ft_putsize_t_formatted(size_t n, t_printformat *fmt);
+
+void format_init(t_printformat *fmt);
+void format_parse_flags(const char *s, int *i, t_printformat *fmt);
+int	format_print_padding(int padding, char c);
 
 #endif
