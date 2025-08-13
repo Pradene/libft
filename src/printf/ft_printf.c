@@ -16,7 +16,7 @@ int	ft_putformated(va_list params, const char *s, int *i) {
 		size += ft_putunbr(va_arg(params, unsigned int));
 	} else if (c == 'x' || c == 'X') {
 		size += ft_puthex(va_arg(params, unsigned long long));
-	} else if (ft_strncmp(&c, "zu", 2) == 0) {
+	} else if (ft_strncmp(&s[*i], "zu", 2) == 0) {
 		size += ft_putsize_t(va_arg(params, size_t));
 		*i += 1;
 	} else if (c == '%') {
