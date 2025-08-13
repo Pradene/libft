@@ -1,9 +1,9 @@
 #include "libft.h"
 
-int	ft_putformated(va_list params, char c) {
-	int	size;
+int	ft_putformated(va_list params, const char *s, int i) {
+	int		size = 0;
+	char	c = s[i];
 
-	size = 0;
 	if (c == 'c') {
 		size += ft_putchar(va_arg(params, int));
 	} else if (c == 's') {
@@ -15,7 +15,9 @@ int	ft_putformated(va_list params, char c) {
 	} else if (c == 'u') {
 		size += ft_putunbr(va_arg(params, unsigned int));
 	} else if (c == 'x' || c == 'X') {
-		size += ft_puthex((unsigned long long)va_arg(params, unsigned int));
+		size += ft_puthex(va_arg(params, unsigned long long));
+	} else if (ft_strncmp(&s[i], "zu", 2) == 0) {
+		size += ft_putsize_t(va_arg(params, size_t));
 	} else if (c == '%') {
 		size += ft_putchar('%');
 	}
@@ -34,7 +36,8 @@ int	ft_printf(const char *s, ...) {
 		if (s[i] != '%') {
 			size += ft_putchar(s[i]);
 		} else {
-			size += ft_putformated(params, s[++i]);
+			++i;
+			size += ft_putformated(params, s, i);
 		}
 		i++;
 	}

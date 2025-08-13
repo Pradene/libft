@@ -67,7 +67,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 // PRINTF
 int	ft_printf(const char *s, ...);
-int	ft_putformated(va_list params, char c);
+int	ft_putformated(va_list params, const char *s, int i);
 int	ft_putstr(char *s);
 int	ft_putchar(char c);
 int	ft_puthex(unsigned long long n);
@@ -76,5 +76,6 @@ int	ft_putunbr(unsigned int n);
 int	ft_putchar(char c);
 int	ft_putstr(char *s);
 int	ft_putptr(unsigned long long n);
+int	ft_putsize_t(size_t n);
 
 #endif
