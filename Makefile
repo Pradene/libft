@@ -1,42 +1,33 @@
-# Directories
 SRC_DIR := src
 OBJ_DIR := obj
 
-# Find all .c files recursively
 SRCS := $(shell find $(SRC_DIR) -type f -name '*.c')
-
-# Convert src paths to obj paths
 OBJS := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
-# Compiler settings
-CC := gcc
-CFLAGS := -Wall -Wextra -Werror -Iinc -fPIC
+CC     := cc
+CFLAGS := -Wall -Wextra -Werror -fPIC -Iinc
 
-# Library name
 NAME := libft.a
 
-# Default target
 all: $(NAME)
+	@echo "\033[1;32m[OK]\033[0m Build complete: $(NAME)"
 
-# Rule for building the library
 $(NAME): $(OBJS)
-	@echo "AR $@"
+	@echo "\033[1;34m[AR]\033[0m $@"
 	@ar rc $(NAME) $(OBJS)
 	@ranlib $(NAME)
 
-# Compile each .c into .o, creating directories as needed
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
-	@echo "CC $<"
+	@echo "\033[1;36m[CC]\033[0m $<"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-# Cleaning
 clean:
-	@echo "Cleaning object files..."
+	@echo "\033[1;31m[CLEAN]\033[0m Removing object files"
 	@rm -rf $(OBJ_DIR)
 
 fclean: clean
-	@echo "Removing $(NAME)..."
+	@echo "\033[1;31m[FCLEAN]\033[0m Removing $(NAME)"
 	@rm -f $(NAME)
 
 re: fclean all
