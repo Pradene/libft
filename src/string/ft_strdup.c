@@ -2,11 +2,13 @@
 
 char	*ft_strdup(const char *s) {
 	char	*str;
+	int		size;
 
-	str = malloc(sizeof(char) * (ft_strlen(s) + 1));
+	size = ft_strlen(s) + 1;
+	str = malloc(sizeof(char) * (size));
 	if (!str) {
-		return (0);
+		return (NULL);
 	}
-	str = ft_memcpy(str, s, ft_strlen(s) + 1);
+	str = ft_memcpy(str, s, size);
 	return (str);
 }
