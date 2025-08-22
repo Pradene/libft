@@ -1,9 +1,9 @@
 #include "libft.h"
 
-List	*ft_lstnew(void *content) {
-	List	*new;
+t_list	*ft_lstnew(void *content) {
+	t_list	*new;
 
-	new = malloc(sizeof(List));
+	new = malloc(sizeof(t_list));
 	if (!new) {
 		return (0);
 	}

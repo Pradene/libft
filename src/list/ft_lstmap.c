@@ -1,8 +1,8 @@
 #include "libft.h"
 
-List	*ft_lstmap(List *lst, void *(*f)(void *), void (*del)(void *)) {
-	List	*l;
-	List	*e;
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *)) {
+	t_list	*l;
+	t_list	*e;
 
 	if (!lst) {
 		return (0);
