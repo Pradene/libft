@@ -6,13 +6,11 @@ char *ft_strcpy(char *dest, const char *src) {
     if (!dest || !src) {
         return (dest);
     }
-
     while (*src) {
         *dest = *src;
         dest++;
         src++;
     }
     *dest = '\0';
-    
     return (original_dest);
 }

@@ -18,9 +18,9 @@ static void ft_printf_parse_flags(const char *s, int *i, PrintfFormat *fmt) {
     if (fmt->flags.plus) fmt->flags.space = 0;
 }
 
-static void ft_printf_parse_width(const char *s, int *i, va_list *params, PrintfFormat *fmt) {
+static void ft_printf_parse_width(const char *s, int *i, va_list params, PrintfFormat *fmt) {
     if (s[*i] == '*') {
-        fmt->width = va_arg(*params, int);
+        fmt->width = va_arg(params, int);
         if (fmt->width < 0) {
             fmt->flags.minus = 1;
             fmt->width = -fmt->width;
@@ -34,12 +34,12 @@ static void ft_printf_parse_width(const char *s, int *i, va_list *params, Printf
     }
 }
 
-static void ft_printf_parse_precision(const char *s, int *i, va_list *params, PrintfFormat *fmt) {
+static void ft_printf_parse_precision(const char *s, int *i, va_list params, PrintfFormat *fmt) {
     if (s[*i] == '.') {
         (*i)++;
         fmt->precision = 0;
         if (s[*i] == '*') {
-            fmt->precision = va_arg(*params, int);
+            fmt->precision = va_arg(params, int);
             if (fmt->precision < 0) fmt->precision = -1;
             (*i)++;
         } else {
@@ -108,7 +108,7 @@ static void ft_printf_parse_specifier(const char *s, int *i, PrintfFormat *fmt) 
     }
 }
 
-void ft_printf_parse_format(const char *s, int *i, va_list *params, PrintfFormat *fmt) {
+void ft_printf_parse_format(const char *s, int *i, va_list params, PrintfFormat *fmt) {
     ft_printf_parse_flags(s, i, fmt);
     ft_printf_parse_width(s, i, params, fmt);
     ft_printf_parse_precision(s, i, params, fmt);
