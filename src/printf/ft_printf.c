@@ -13,8 +13,7 @@ static int output_to_fd(void *output, const char *data, size_t len) {
 
 static int output_to_file(void *output, const char *data, size_t len) {
     FILE *file = (FILE *)output;
-    size_t written = fwrite(data, 1, len, file);
-    return (written == len) ? len : -1;
+    return (fwrite(data, 1, len, file));
 }
 
 // Generic output functions with consistent parameter order

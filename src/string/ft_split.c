@@ -25,7 +25,7 @@ char	**ft_split(const char *s, char c) {
 	len = 0;
 	j = 0;
 	i = 0;
-	while (j < ft_strlen(s) + 1) {
+	while (j <= (int)ft_strlen(s)) {
 		if (s[j] != c && s[j] != 0) {
 			len++;
 		}

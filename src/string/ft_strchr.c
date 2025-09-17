@@ -2,12 +2,14 @@
 
 char	*ft_strchr(const char *str, int c) {
 	int	i;
+	int	size;
 
 	if (!str) {
 		return (0);
 	}
 	i = 0;
-	while (i < ft_strlen(str) + 1) {
+	size = (int)ft_strlen(str);
+	while (i <= size) {
 		if (str[i] == (char)c) {
 			return ((char *)str + i);
 		}
