@@ -15,5 +15,5 @@ int ft_strrcmp(const char *a, const char *b) {
             return (a_char - b_char);
         }
     }
-    return (a_len - b_len);
+    return (a_char - b_char);
 }
