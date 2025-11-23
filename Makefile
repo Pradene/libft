@@ -5,7 +5,7 @@ SRCS := $(shell find $(SRC_DIR) -type f -name '*.c')
 OBJS := $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRCS))
 
 CC     := cc
-CFLAGS := -Wall -Wextra -Werror -fPIC -Iinc
+CFLAGS := -Wall -Wextra -Werror -fPIC -I.
 
 NAME := libft.a
 
